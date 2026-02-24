@@ -98,7 +98,7 @@ import { CommonModule } from '@angular/common';
               
               <div class="relative w-full h-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/50 backdrop-blur-sm shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" 
+                  src="assets/img/me.jpeg" 
                   alt="Shem Itoya"
                   class="w-full h-full object-cover grayscale opacity-40 contrast-125 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-in-out"
                 />
