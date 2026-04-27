@@ -48,7 +48,8 @@ export class ProjectsService {
           live_url: '#',
           github_url: null,
           featured: true,
-          order_index: 0
+          order_index: 0,
+          category: 'Web'
         },
         {
           id: '2',
@@ -62,7 +63,8 @@ export class ProjectsService {
           live_url: null,
           github_url: '#',
           featured: true,
-          order_index: 1
+          order_index: 1,
+          category: 'Mobile'
         },
         {
           id: '3',
@@ -76,7 +78,8 @@ export class ProjectsService {
           live_url: '#',
           github_url: null,
           featured: false,
-          order_index: 2
+          order_index: 2,
+          category: 'Web'
         },
         {
           id: '4',
@@ -90,7 +93,8 @@ export class ProjectsService {
           live_url: '#',
           github_url: null,
           featured: false,
-          order_index: 3
+          order_index: 3,
+          category: 'Web'
         },
         {
           id: '1-1',
@@ -105,7 +109,8 @@ export class ProjectsService {
           github_url: null,
           featured: false,
           order_index: 0,
-          parent_id: '1'
+          parent_id: '2',
+          category: 'Web'
         },
         {
           id: '1-2',
@@ -120,7 +125,8 @@ export class ProjectsService {
           github_url: '#',
           featured: false,
           order_index: 1,
-          parent_id: '1'
+          parent_id: '1',
+          category: 'Mobile'
         }
       ];
 

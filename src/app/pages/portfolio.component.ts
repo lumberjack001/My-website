@@ -1,11 +1,12 @@
 import { Component, inject, computed, signal, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsService } from '../services/projects.service';
+import { ProjectCardComponent } from '../components/project-card.component';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProjectCardComponent],
   template: `
     <section class="min-h-screen py-32 px-6 w-full max-w-[100vw] overflow-x-hidden pt-40">
       <div class="max-w-7xl mx-auto">
@@ -22,35 +23,18 @@ import { ProjectsService } from '../services/projects.service';
           <button 
             (click)="setFilter('All')"
             [class.bg-blue-600]="activeFilter() === 'All'"
+            [class.bg-blue-700]="activeFilter() === 'All'"
             [class.text-white]="activeFilter() === 'All'"
-            [class.border-blue-600]="activeFilter() === 'All'"
-            class="px-6 py-2 rounded-full border border-white/10 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all bg-white/[0.02]">
-            All
-          </button>
-          <button 
-            (click)="setFilter('Angular')"
-            [class.bg-blue-600]="activeFilter() === 'Angular'"
-            [class.text-white]="activeFilter() === 'Angular'"
-            [class.border-blue-600]="activeFilter() === 'Angular'"
-            class="px-6 py-2 rounded-full border border-white/10 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all bg-white/[0.02]">
-            Angular
-          </button>
-          <button 
-            (click)="setFilter('Ionic')"
-            [class.bg-blue-600]="activeFilter() === 'Ionic'"
-            [class.text-white]="activeFilter() === 'Ionic'"
-            [class.bg-white]="activeFilter() !== 'All'"
-            class="px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all bg-opacity-5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 text-slate-400">
+            class="px-6 py-2 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.08]">
             All Projects
           </button>
           
           @for (cat of categories; track cat) {
             <button 
               (click)="setFilter(cat)"
-              [class.bg-blue-600]="activeFilter() === cat"
+              [class.bg-slate-700]="activeFilter() === cat"
               [class.text-white]="activeFilter() === cat"
-              [class.bg-white]="activeFilter() !== cat"
-              class="px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all bg-opacity-5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 text-slate-400">
+              class="px-6 py-2 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.08]">
               {{ cat }}
             </button>
           }
@@ -231,6 +215,7 @@ export class PortfolioComponent implements AfterViewInit {
 
   activeFilter = signal<string>('All');
   expandedProjects = signal<Set<string>>(new Set());
+  categories = ['Web', 'Mobile'];
 
   isExpanded(projectId: string): boolean {
     return this.expandedProjects().has(projectId);
@@ -251,7 +236,7 @@ export class PortfolioComponent implements AfterViewInit {
     if (currentFilter === 'All') {
       return this.projects();
     }
-    return this.projects().filter(p => p.technologies.includes(currentFilter));
+    return this.projects().filter(p => p.category === currentFilter);
   });
 
   setFilter(filter: string) {

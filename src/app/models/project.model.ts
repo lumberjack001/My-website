@@ -11,6 +11,7 @@ export interface Project {
   github_url: string | null;
   featured: boolean;
   order_index: number;
+  category?: 'Web' | 'Mobile' | string;
   parent_id?: string | null;
   subProjects?: Project[];
 }
