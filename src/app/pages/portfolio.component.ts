@@ -22,7 +22,6 @@ import { ProjectCardComponent } from '../components/project-card.component';
         <div class="flex flex-wrap justify-center gap-4 mb-16 reveal-portfolio">
           <button 
             (click)="setFilter('All')"
-            [class.bg-blue-600]="activeFilter() === 'All'"
             [class.bg-blue-700]="activeFilter() === 'All'"
             [class.text-white]="activeFilter() === 'All'"
             class="px-6 py-2 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-all bg-white/[0.02] hover:bg-white/[0.08]">
