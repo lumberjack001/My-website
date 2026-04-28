@@ -51,7 +51,7 @@ import { ProjectCardComponent } from '../components/project-card.component';
             @for (project of filteredProjects(); track project.id) {
               
               <!-- GRID CELL: Dynamically breaks out into a full row span when expanded -->
-              <div class="relative reveal-portfolio-stagger transition-all duration-700 self-start w-full"
+              <div [id]="'project-' + project.id" class="relative reveal-portfolio-stagger transition-all duration-700 self-start w-full"
                    [ngClass]="isExpanded(project.id) ? 'col-span-1 md:col-span-2 lg:col-span-3 bg-black/20 border border-blue-500/10 p-6 md:p-12 rounded-[3.5rem] shadow-2xl' : 'flex flex-col gap-6'">
                 
                 <div [ngClass]="isExpanded(project.id) ? 'flex flex-col lg:flex-row gap-12 lg:gap-[8rem] w-full items-center lg:items-center' : 'w-full'">
@@ -222,12 +222,24 @@ export class PortfolioComponent implements AfterViewInit {
 
   toggleSubProjects(projectId: string) {
     const current = new Set(this.expandedProjects());
+    const isExpanding = !current.has(projectId);
+
     if (current.has(projectId)) {
       current.delete(projectId);
     } else {
       current.add(projectId);
     }
     this.expandedProjects.set(current);
+
+    if (isExpanding) {
+      setTimeout(() => {
+        const el = document.getElementById('project-' + projectId);
+        if (el) {
+          // Add a subtle offset or simply align exactly. 'nearest' or 'center' is smoother.
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
+    }
   }
 
   filteredProjects = computed(() => {

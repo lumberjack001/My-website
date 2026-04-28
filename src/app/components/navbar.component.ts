@@ -27,8 +27,8 @@ import { filter } from 'rxjs/operators';
         </a>
         
         <div class="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-widest">
-          <a [routerLink]="['/']" fragment="experience" class="hover:text-blue-400 transition-colors" [class.text-blue-500]="isCurrentRoute('/') && !isCurrentRoute('/portfolio')">Experience</a>
-          <a [routerLink]="['/']" fragment="skills" class="hover:text-blue-400 transition-colors">Stack</a>
+          <a [routerLink]="['/']" fragment="experience" class="hover:text-blue-400 transition-colors" [class.text-blue-500]="isActiveFragment('experience')">Experience</a>
+          <a [routerLink]="['/']" fragment="skills" class="hover:text-blue-400 transition-colors" [class.text-blue-500]="isActiveFragment('skills')">Stack</a>
           <a [routerLink]="['/portfolio']" class="hover:text-blue-400 transition-colors" [class.text-blue-500]="isCurrentRoute('/portfolio')">Portfolio</a>
           <button class="px-6 py-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-all transform active:scale-95 shadow-lg shadow-blue-600/20">
             Get In Touch
@@ -78,9 +78,13 @@ export class NavbarComponent implements OnInit {
 
   isCurrentRoute(route: string): boolean {
     if (route === '/') {
-      return this.currentUrl() === '/' || this.currentUrl().startsWith('/#');
+      return this.currentUrl() === '/';
     }
     return this.currentUrl().startsWith(route);
+  }
+
+  isActiveFragment(fragment: string): boolean {
+    return this.currentUrl().includes('#' + fragment);
   }
 
   @HostListener('window:scroll', [])

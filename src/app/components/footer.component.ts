@@ -11,13 +11,15 @@ import { Component } from '@angular/core';
         
         <div class="flex flex-wrap justify-center gap-8 pt-8">
           <a href="mailto:itoya.shem2017@gmail.com" class="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500 hover:text-white transition-all">itoya.shem2017&#64;gmail.com</a>
-          <a href="https://linkedin.com" target="_blank" class="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500 hover:text-white transition-all">LinkedIn</a>
-          <a href="https://github.com" target="_blank" class="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500 hover:text-white transition-all">GitHub</a>
+          <a href="https://www.linkedin.com/in/shem-itoya-10b025230/" target="_blank" class="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500 hover:text-white transition-all">LinkedIn</a>
+          <a href="https://github.com/lumberjack001" target="_blank" class="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500 hover:text-white transition-all">GitHub</a>
         </div>
         
-        <p class="text-[8px] text-slate-800 font-black uppercase tracking-[0.6em] pt-12 italic">© 2026 SHEM ITOYA • ENGINEERED FOR SCALE</p>
+        <p class="text-[8px] text-slate-800 font-black uppercase tracking-[0.6em] pt-12 italic">&copy; {{ currentYear }} SHEM ITOYA</p>
       </div>
     </footer>
   `
 })
-export class FooterComponent {}
+export class FooterComponent { 
+  currentYear = new Date().getFullYear();
+}
