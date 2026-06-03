@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, inject, computed, signal, AfterViewInit, ElementRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsService } from '../services/projects.service';
 import { ProjectCardComponent } from '../components/project-card.component';
@@ -216,6 +216,20 @@ export class PortfolioComponent implements AfterViewInit {
   expandedProjects = signal<Set<string>>(new Set());
   categories = ['Web', 'Mobile'];
 
+  private observer: IntersectionObserver | null = null;
+
+  constructor() {
+    effect(() => {
+      const loading = this.isLoading();
+      if (!loading) {
+        // Trigger scroll reveal after the DOM updates
+        setTimeout(() => {
+          this.initScrollReveal();
+        }, 50);
+      }
+    });
+  }
+
   isExpanded(projectId: string): boolean {
     return this.expandedProjects().has(projectId);
   }
@@ -264,8 +278,11 @@ export class PortfolioComponent implements AfterViewInit {
   }
 
   private initScrollReveal() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
     setTimeout(() => {
-      const observer = new IntersectionObserver((entries) => {
+      this.observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           entry.target.classList.toggle('active', entry.isIntersecting);
         });
@@ -279,11 +296,11 @@ export class PortfolioComponent implements AfterViewInit {
         // Add staggered transition delay based on index (up to a max so it doesn't wait forever)
         const delay = Math.min((index % 6) * 150, 600);
         el.style.transitionDelay = `${delay}ms`;
-        observer.observe(el);
+        this.observer?.observe(el);
       });
 
       const revealElements = this.el.nativeElement.querySelectorAll('.reveal-portfolio');
-      revealElements.forEach((el: HTMLElement) => observer.observe(el));
+      revealElements.forEach((el: HTMLElement) => this.observer?.observe(el));
     }, 100);
   }
 }
